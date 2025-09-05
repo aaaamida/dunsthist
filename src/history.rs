@@ -3,7 +3,7 @@
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
-pub struct History {
+pub struct NotifHistory {
         #[serde(rename = "type")]
         pub notification_type: String,
         pub data: Vec<Vec<NotifItem>>,
