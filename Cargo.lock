@@ -125,6 +125,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cursive-hjkl"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e87bd027d7cb382a5cc121476c84553f6239a186fa4408aa7013c10088b4e66c"
+dependencies = [
+ "cursive_core",
+]
+
+[[package]]
 name = "cursive-macros"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -205,6 +214,7 @@ version = "0.1.0"
 dependencies = [
  "colored",
  "cursive",
+ "cursive-hjkl",
  "serde",
  "serde_json",
 ]
