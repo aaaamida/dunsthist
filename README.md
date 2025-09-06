@@ -1,1 +1,1 @@
-simple dunst notification history list display
+simple dunst notification history list display (for personal use case)
