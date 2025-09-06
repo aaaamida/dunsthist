@@ -4,9 +4,18 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct NotifHistory {
-        #[serde(rename = "type")]
-        pub notification_type: String,
-        pub data: Vec<Vec<NotifItem>>,
+        #[serde(flatten, deserialize_with = "flatten_data")]
+        pub data: Vec<NotifItem>,
+}
+
+fn flatten_data<'d, D: serde::Deserializer<'d>>(des: D) -> Result<Vec<NotifItem>, D::Error> {
+        #[derive(Deserialize)]
+        struct Wrapper {
+                data: Vec<Vec<NotifItem>>
+        }
+
+        let wrapper = Wrapper::deserialize(des)?;
+        Ok(wrapper.data.into_iter().flatten().collect())
 }
 
 #[derive(Debug, Deserialize)]
@@ -21,35 +30,15 @@ pub struct NotifItem {
 
 #[derive(Debug, Deserialize)]
 pub struct NotifData {
-        #[serde(rename = "type")]
-        pub field_type: String,
         pub data: String,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Id {
-        #[serde(rename = "type")]
-        pub field_type: String,
         pub data: u32,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct Timestamp {
-        #[serde(rename = "type")]
-        pub field_type: String,
         pub data: u64,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct Urgency {
-        #[serde(rename = "type")]
-        pub field_type: String,
-        pub data: UrgencyLevel,
-}
-
-#[derive(Debug, Deserialize)]
-pub enum UrgencyLevel {
-        Low,
-        Normal,
-        Critical
 }
